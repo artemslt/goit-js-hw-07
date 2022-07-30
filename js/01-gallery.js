@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
 const galleryDiv = document.querySelector('.gallery');
 
 galleryDiv.innerHTML = galleryItems
@@ -26,6 +24,12 @@ const clickOnImage = evt => {
     return;
   }
   const largeImg = evt.target.dataset.source;
+  const closeBtnEsc = evt => {
+    if (evt.key === 'Escape') {
+      return instance.close();
+    }
+  };
+
   const instance = basicLightbox.create(
     `
     <div class="modal">
@@ -35,17 +39,16 @@ const clickOnImage = evt => {
     {
       onShow: instance => {
         instance.element().querySelector('img').onclick = instance.close;
+        document.addEventListener('keydown', closeBtnEsc);
+      },
+
+      onClose: () => {
+        document.removeEventListener('keydown', closeBtnEsc);
       },
     }
   );
 
   instance.show();
-
-  document.addEventListener('keydown', evt => {
-    if (evt.key === 'Escape') {
-      return instance.close();
-    }
-  });
 };
 
 galleryDiv.addEventListener('click', clickOnImage);

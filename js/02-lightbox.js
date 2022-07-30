@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
 const galleryDiv = document.querySelector('.gallery');
 
 galleryDiv.innerHTML = galleryItems
